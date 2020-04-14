@@ -1,0 +1,29 @@
+{
+  "name": "toolpic-render",
+  "version": "0.1.9",
+  "description": "Toolpic rendering system that makes use of puppeteer",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "toolpic",
+    "server",
+    "render",
+    "engine",
+    "service"
+  ],
+  "author": "Maurice Conrad",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "is-port-reachable": "^3.0.0",
+    "puppeteer": "^2.1.1",
+    "tmp": "^0.1.0"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/MauriceConrad/ToolpicRender.git"
+  }
+}
