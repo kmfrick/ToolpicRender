@@ -66,7 +66,7 @@ To render a template `render(<options>)` will be used as the following:
 
 
 ```javascript
-renderInstance.render({
+const process = renderInstance.render({
   width: 1200,
   height: 1200,
   type: 'image',
@@ -156,3 +156,26 @@ To make this pre-compiled standalone *Template Components* work with a rendering
 #### Asset Delivery System
 
 Because we cannot set something like a dynamic `publicPath` that gets defined when importing the module and we don't know the location in which our `root` file and the `assets` will live at the end of the day, we cannot set any location preferences when configuring the `webpack.templates.js` to bundle our *Template Components*. So, they will always be requested at root level (`/`) when importing them. Because they are imported in our *client-application* that lives locally on some port between `65000` and `65500`, the assets would trigger an error when they're getting requested. Because of this, we let the `render()` method know the absolute path in which the `assets` are stored: The local *delivery server* is abled to look wether he can find the requested asset (that is absolutely not stored on our server at root (`/`) level) at any of current registered `assets` locations. Depending on how many different templates are rendering at the same time, of course, there is an amount of possible locations. But because the delivery server just send `HEAD` requests and you should just use stable CDN's or webservers, this action doesn't needs a lot of time. If a template is rendered successfully, the related `asset` target will be removed after 5000ms to prevent a session that is currently loading the `root` file but didn't started requesting the assets while the related asset target was already registered to run into error when a second session that uses the same combination of `root` and `assets` closed the *WriteStream*).
+
+
+##### on:`progress`
+
+When something happened while processing the template, the `progress` event will be fired.
+It will give you one argument containing an object that describes the current action using `description` property and the current state of it using `progress` property.
+
+```javascript
+process.on("progress", data => {
+  // Log progress object
+  console.log(data);
+  /*
+  -->
+      {
+        description: "configuring",
+        progress: 0.75
+      }
+  */
+});
+```
+
+`description`: Any String
+`progress`: Value between `0` and `1`
