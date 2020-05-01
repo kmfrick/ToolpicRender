@@ -28,7 +28,7 @@ class RenderingProcess extends EventEmitter {
 
   }
   async __render() {
-    const { type, format, component, videoOptions, data, renderings } = this.opts;
+    const { type, format, component, videoOptions, data, renderings, delay } = this.opts;
     const writeStream = this.opts.pipeTarget;
 
     this.page = await this.openPage(this.deliveryServerApplicationEntry);
@@ -83,6 +83,10 @@ class RenderingProcess extends EventEmitter {
         setTimeout(resolve, 50);
       });
     }
+
+    await new Promise(function(resolve, reject) {
+      setTimeout(resolve, delay);
+    });
 
     await Types[type].render({
       __stream: writeStream,

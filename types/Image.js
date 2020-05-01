@@ -13,7 +13,10 @@ module.exports = {
 
     const type = formatTypes.get(format);
 
-    const buffer = await page.screenshot({ type });
+    const buffer = await page.screenshot({
+      type,
+      quality: type === 'jpeg' ? 95 : undefined
+    });
 
     __instance.emit("progress", {
       description: "templating",

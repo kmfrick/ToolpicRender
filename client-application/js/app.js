@@ -30,10 +30,12 @@ function init(root, dataset = {}, usingInitDataObj = true, renderings = 3) {
       if (!usingInitDataObj) {
         render.dataset = dataset;
       }
-      render.on("load", function() {
+
+      render.listenForResources().then(() => {
         console.log("Images loaded!");
         resolve(true);
       });
+
       target.append(render.context);
 
       render.Vue.$forceUpdate();
