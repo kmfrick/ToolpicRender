@@ -60,7 +60,7 @@ class RenderingProcess extends EventEmitter {
       //console.log(msg);
     });
 
-    console.log("Init...");
+    console.log("Init...", componentsRootFile);
 
     // Wait for component to be mounted and all assets to be loaded
     const res = await this.page.evaluate(async function(componentsRootFile, __data, renderings) {
