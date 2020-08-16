@@ -5,7 +5,8 @@ const Stream = require('stream');
 
 const Types = {
   "image": require(__dirname + '/types/Image'),
-  "video": require(__dirname + '/types/Video')
+  "video": require(__dirname + '/types/Video'),
+  "vector": require(__dirname + '/types/Vector'),
 };
 
 class RenderingProcess extends EventEmitter {
@@ -60,7 +61,7 @@ class RenderingProcess extends EventEmitter {
       //console.log(msg);
     });
 
-    console.log("Init...", componentsRootFile);
+    //console.log("Init...", componentsRootFile);
 
     // Wait for component to be mounted and all assets to be loaded
     const res = await this.page.evaluate(async function(componentsRootFile, __data, renderings) {
@@ -92,6 +93,10 @@ class RenderingProcess extends EventEmitter {
       __stream: writeStream,
       page: this.page,
       format,
+      size: {
+        width: this.opts.width,
+        height: this.opts.height
+      },
       videoOptions: videoOptions ? Object.assign(videoOptions, {
         width: this.opts.width,
         height: this.opts.height

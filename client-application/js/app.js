@@ -3,7 +3,6 @@ function init(root, dataset = {}, usingInitDataObj = true, renderings = 3) {
   return new Promise(async function(resolve, reject) {
     const componentModule = await import(root);
 
-
     try {
       if (usingInitDataObj) {
         try {
